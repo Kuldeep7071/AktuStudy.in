@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070815" />
+  <meta name="description" content="AKTUStudy.in is coming soon — a dedicated study platform for AKTU students with notes, PYQs, university updates and educational resources." />
+  <title>AKTUStudy.in — Coming Soon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#060713;
+      --bg-soft:#0b0d1d;
+      --card:rgba(255,255,255,.055);
+      --card-strong:rgba(255,255,255,.085);
+      --line:rgba(255,255,255,.11);
+      --text:#f7f8ff;
+      --muted:#a6aec5;
+      --purple:#8b7cff;
+      --pink:#ff6dcc;
+      --cyan:#5ee7ff;
+      --green:#62e8b5;
+      --shadow:0 30px 90px rgba(0,0,0,.45);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      overflow-x:hidden;
+      font-family:"DM Sans",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(139,124,255,.16), transparent 27%),
+        radial-gradient(circle at 82% 12%, rgba(94,231,255,.11), transparent 23%),
+        radial-gradient(circle at 50% 55%, rgba(255,109,204,.07), transparent 28%),
+        linear-gradient(180deg,#050610 0%,#080a18 48%,#050610 100%);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.35;
+      background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(to bottom,black,transparent 82%);
+      z-index:-2;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      width:500px;height:500px;
+      right:-180px;top:15%;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(139,124,255,.12),transparent 70%);
+      filter:blur(20px);
+      pointer-events:none;
+      z-index:-1;
+      animation:orb 8s ease-in-out infinite alternate;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button,input,textarea{font:inherit}
+    .container{width:min(1120px,calc(100% - 36px));margin:auto}
+
+    /* NAV */
+    .nav-wrap{position:fixed;top:16px;left:0;right:0;z-index:100}
+    nav{
+      display:flex;align-items:center;justify-content:space-between;gap:20px;
+      padding:11px 12px 11px 17px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(7,8,20,.67);
+      backdrop-filter:blur(18px);
+      box-shadow:0 15px 45px rgba(0,0,0,.2);
+    }
+    .brand{display:flex;align-items:center;gap:11px;font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.03em}
+    .brand-mark{
+      width:39px;height:39px;display:grid;place-items:center;border-radius:13px;
+      background:linear-gradient(135deg,var(--purple),var(--cyan));
+      box-shadow:0 0 36px rgba(139,124,255,.45);
+      position:relative;overflow:hidden;
+    }
+    .brand-mark::after{content:"";position:absolute;inset:-30%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.42),transparent);transform:translateX(-100%) rotate(18deg);animation:sheen 3s infinite}
+    .nav-links{display:flex;gap:25px;color:#b8bfd3;font-size:.94rem}
+    .nav-links a{transition:.25s ease}
+    .nav-links a:hover{color:#fff;transform:translateY(-1px)}
+    .nav-mail{font-size:.91rem;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.04)}
+    .nav-mail:hover{background:rgba(255,255,255,.08)}
+
+    /* HERO */
+    .hero{position:relative;min-height:100vh;display:grid;place-items:center;padding:145px 0 100px;text-align:center}
+    .hero-inner{position:relative}
+    .announcement{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:8px 12px;border:1px solid rgba(139,124,255,.27);border-radius:999px;
+      background:rgba(139,124,255,.07);color:#d7d2ff;font-size:.84rem;
+      box-shadow:0 0 35px rgba(139,124,255,.09);
+      animation:fadeUp .8s ease both;
+    }
+    .announcement .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green);animation:pulse 1.7s infinite}
+    .hero h1{
+      max-width:900px;margin:22px auto 18px;
+      font:700 clamp(3.35rem,8vw,7.1rem)/.92 "Space Grotesk",sans-serif;
+      letter-spacing:-.065em;
+      animation:fadeUp .9s .08s ease both;
+    }
+    .hero h1 .gradient{background:linear-gradient(110deg,#fff 2%,#cfc8ff 38%,#93eeff 72%,#ffb7eb 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-copy{max-width:690px;margin:0 auto;color:var(--muted);font-size:1.08rem;line-height:1.8;animation:fadeUp .9s .16s ease both}
+    .hero-copy strong{color:#eef0ff}
+
+    .hero-actions{display:flex;justify-content:center;gap:13px;margin-top:31px;flex-wrap:wrap;animation:fadeUp .9s .24s ease both}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 18px;border-radius:15px;border:1px solid var(--line);font-weight:700;transition:.25s ease;position:relative;overflow:hidden}
+    .btn-primary{color:#fff;background:linear-gradient(135deg,var(--purple),#7262e9);box-shadow:0 14px 36px rgba(139,124,255,.24)}
+    .btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-120%);animation:buttonSheen 3s infinite}
+    .btn-ghost{background:rgba(255,255,255,.045);color:#f1f3fb}
+    .btn:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.2);box-shadow:0 16px 35px rgba(0,0,0,.22)}
+
+    .mini-note{margin-top:15px;color:#737c95;font-size:.79rem;animation:fadeUp .9s .3s ease both}
+
+    /* floating preview */
+    .hero-stage{position:relative;min-height:330px;margin:67px auto 0;max-width:980px;animation:fadeUp 1s .33s ease both}
+    .stage-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58%;height:68%;background:radial-gradient(circle,rgba(139,124,255,.24),transparent 72%);filter:blur(28px)}
+    .launch-card{
+      position:relative;margin:auto;width:min(820px,100%);min-height:275px;
+      border:1px solid rgba(255,255,255,.12);border-radius:30px;
+      background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));
+      backdrop-filter:blur(14px);box-shadow:var(--shadow);overflow:hidden;
+      transform-style:preserve-3d;transition:transform .18s ease;
+    }
+    .launch-card::before{content:"";position:absolute;inset:-100px;background:linear-gradient(120deg,transparent 40%,rgba(255,255,255,.08) 50%,transparent 60%);transform:translateX(-40%) rotate(8deg);animation:cardSweep 5.5s infinite}
+    .window-bar{height:48px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:7px;padding:0 17px}
+    .window-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.17)}
+    .launch-content{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;padding:32px}
+    .fake-logo{font:700 1.65rem "Space Grotesk";text-align:left}
+    .fake-logo span{color:var(--cyan)}
+    .launch-title{text-align:left;margin-top:18px;font:700 2.65rem/1 "Space Grotesk";letter-spacing:-.05em}
+    .launch-sub{text-align:left;color:#9ca6bf;line-height:1.65;margin-top:12px;font-size:.91rem;max-width:460px}
+    .progress-wrap{text-align:left;margin-top:22px}
+    .progress-label{display:flex;justify-content:space-between;color:#98a1b9;font-size:.76rem;margin-bottom:7px}
+    .progress{height:7px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
+    .progress span{display:block;height:100%;width:78%;border-radius:999px;background:linear-gradient(90deg,var(--purple),var(--cyan));box-shadow:0 0 18px rgba(139,124,255,.4);animation:load 2.3s ease both}
+    .side-stack{display:grid;align-content:center;gap:12px}
+    .stack-card{padding:15px;border:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.16);border-radius:16px;text-align:left;transform:translateZ(25px);animation:floatCard 4s ease-in-out infinite}
+    .stack-card:nth-child(2){animation-delay:-1.3s}.stack-card:nth-child(3){animation-delay:-2.4s}
+    .stack-label{font-size:.7rem;color:#838ca2;text-transform:uppercase;letter-spacing:.12em}
+    .stack-value{margin-top:6px;font-weight:700;font-size:.96rem}
+
+    /* WHAT'S COMING */
+    section{padding:105px 0}
+    .section-kicker{text-align:center;color:#8e86ff;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.16em;margin-bottom:12px}
+    .section-title{text-align:center;font:700 clamp(2.2rem,5vw,3.7rem)/1.05 "Space Grotesk";letter-spacing:-.055em}
+    .section-sub{max-width:650px;margin:14px auto 0;color:var(--muted);text-align:center;line-height:1.75}
+
+    .feature-grid{margin-top:46px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+    .feature-card{min-height:200px;padding:24px;border:1px solid var(--line);border-radius:22px;background:var(--card);transition:.28s ease;position:relative;overflow:hidden}
+    .feature-card::before{content:"";position:absolute;inset:auto -20% -45% -20%;height:120px;background:radial-gradient(circle,rgba(139,124,255,.18),transparent 68%);transition:.35s ease}
+    .feature-card:hover{transform:translateY(-8px);border-color:rgba(139,124,255,.34);background:var(--card-strong);box-shadow:0 25px 55px rgba(0,0,0,.22)}
+    .feature-card:hover::before{transform:translateY(-20px)}
+    .feature-icon{width:47px;height:47px;border-radius:15px;display:grid;place-items:center;background:rgba(139,124,255,.12);border:1px solid rgba(139,124,255,.16);font-size:1.25rem}
+    .feature-card h3{margin-top:21px;font:700 1.12rem "Space Grotesk"}
+    .feature-card p{color:#8f99b0;line-height:1.7;font-size:.88rem;margin-top:8px}
+
+    /* about */
+    .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+    .about h2{font:700 clamp(2.2rem,5vw,3.8rem)/1 "Space Grotesk";letter-spacing:-.055em;max-width:560px}
+    .about p{color:var(--muted);line-height:1.85;margin-top:18px;max-width:560px}
+    .pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+    .pill{padding:9px 12px;border:1px solid var(--line);border-radius:999px;color:#ccd1df;background:rgba(255,255,255,.03);font-size:.8rem}
+    .about-panel{position:relative;border:1px solid var(--line);border-radius:28px;padding:24px;background:linear-gradient(145deg,rgba(139,124,255,.1),rgba(255,255,255,.025));overflow:hidden}
+    .about-panel::after{content:"";position:absolute;width:220px;height:220px;right:-90px;bottom:-90px;background:radial-gradient(circle,rgba(94,231,255,.16),transparent 68%);filter:blur(8px)}
+    .timeline{display:grid;gap:17px;position:relative}
+    .timeline-item{display:grid;grid-template-columns:16px 1fr;gap:13px;align-items:start}
+    .timeline-dot{width:13px;height:13px;border-radius:50%;margin-top:6px;background:linear-gradient(135deg,var(--purple),var(--cyan));box-shadow:0 0 20px rgba(139,124,255,.45)}
+    .timeline-item h4{font:700 1rem "Space Grotesk"}.timeline-item p{margin:5px 0 0;font-size:.83rem;color:#8993aa;line-height:1.6}
+
+    /* contact */
+    .contact-shell{margin-top:45px;display:grid;grid-template-columns:.84fr 1.16fr;gap:18px}
+    .contact-info,.contact-form{border:1px solid var(--line);border-radius:25px;background:var(--card);padding:28px;position:relative;overflow:hidden}
+    .contact-info::before,.contact-form::before{content:"";position:absolute;inset:auto -20% -45% -20%;height:170px;background:radial-gradient(circle,rgba(139,124,255,.16),transparent 70%)}
+    .contact-info h3{font:700 1.55rem "Space Grotesk"}.contact-info p{margin-top:10px;color:#929bb2;line-height:1.72;font-size:.9rem}
+    .contact-link{display:inline-flex;align-items:center;gap:8px;margin-top:23px;color:#fff;font-weight:700}
+    .contact-link span{color:var(--cyan)}
+    .small-caption{font-size:.74rem;color:#747e94;margin-top:25px}
+    form{position:relative;z-index:1;display:grid;gap:12px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    label{display:grid;gap:7px;color:#c6cbda;font-size:.8rem}
+    input,textarea{width:100%;border-radius:13px;border:1px solid rgba(255,255,255,.09);background:rgba(0,0,0,.18);color:#fff;padding:12px 13px;outline:none;transition:.2s ease}
+    input:focus,textarea:focus{border-color:rgba(139,124,255,.55);box-shadow:0 0 0 4px rgba(139,124,255,.08)}
+    textarea{min-height:125px;resize:vertical}
+    .send-row{display:flex;align-items:center;justify-content:space-between;gap:13px;margin-top:2px}
+    .form-status{font-size:.76rem;color:#7f8aa3;line-height:1.4}
+
+    /* footer */
+    footer{padding:28px 0 38px;border-top:1px solid rgba(255,255,255,.06)}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;color:#737c92;font-size:.8rem}
+    .footer-brand{color:#dfe3ee;font-weight:700}.footer-brand span{color:var(--cyan)}
+    .footer-link{color:#aab2c8}.footer-link:hover{color:#fff}
+
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}.reveal.show{opacity:1;transform:none}
+
+    /* decorative */
+    .particles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+    .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 12px rgba(139,124,255,.75);animation:drift linear infinite}
+    .scroll-line{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);width:1px;height:58px;background:linear-gradient(var(--cyan),transparent);opacity:.55}
+
+    @keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+    @keyframes pulse{0%,100%{transform:scale(.85);opacity:.65}50%{transform:scale(1.25);opacity:1}}
+    @keyframes sheen{0%{transform:translateX(-120%) rotate(18deg)}30%,100%{transform:translateX(220%) rotate(18deg)}}
+    @keyframes buttonSheen{0%,45%{transform:translateX(-120%)}65%,100%{transform:translateX(120%)}}
+    @keyframes cardSweep{0%,55%{transform:translateX(-65%) rotate(8deg)}75%,100%{transform:translateX(65%) rotate(8deg)}}
+    @keyframes floatCard{0%,100%{transform:translateY(0) translateZ(25px)}50%{transform:translateY(-8px) translateZ(25px)}}
+    @keyframes orb{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(-80px,40px,0) scale(1.1)}}
+    @keyframes load{from{width:0}to{width:78%}}
+    @keyframes drift{from{transform:translateY(100vh) translateX(0);opacity:0}20%{opacity:.7}80%{opacity:.25}to{transform:translateY(-15vh) translateX(50px);opacity:0}}
+
+    @media (max-width:900px){
+      .nav-links{display:none}.nav-mail{font-size:.83rem}
+      .feature-grid{grid-template-columns:repeat(2,1fr)}
+      .launch-content{grid-template-columns:1fr}.side-stack{display:none}
+      .about-wrap,.contact-shell{grid-template-columns:1fr}
+    }
+    @media (max-width:620px){
+      .container{width:min(100% - 26px,1120px)}
+      .hero{padding-top:120px}
+      .hero h1{font-size:3.2rem}
+      .hero-copy{font-size:.97rem}
+      .hero-stage{margin-top:46px;min-height:310px}
+      .launch-card{min-height:290px}
+      .launch-content{padding:22px}.launch-title{font-size:2rem}
+      section{padding:78px 0}
+      .feature-grid{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .send-row{align-items:flex-start;flex-direction:column}
+      .footer-inner{flex-direction:column;align-items:flex-start}
+      .nav-mail{padding:9px 10px}
+      .brand{font-size:.95rem}
+    }
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+
+  <header class="nav-wrap">
+    <div class="container">
+      <nav>
+        <a class="brand" href="#top" aria-label="AKTUStudy home">
+          <span class="brand-mark">A</span>
+          <span>AKTUStudy<span style="color:var(--cyan)">.in</span></span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#features">What's Coming</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="nav-mail" href="mailto:info@aktustudy.in">info@aktustudy.in</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="announcement"><span class="dot"></span> AKTUStudy.in is currently in development</div>
+        <h1>Your <span class="gradient">AKTU journey</span> is about to get easier.</h1>
+        <p class="hero-copy">
+          <strong>AKTUStudy.in</strong> is being built as a dedicated learning hub for AKTU students — bringing notes, PYQs, syllabus resources, university updates and useful educational content together in one place.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Get in touch <span>↗</span></a>
+          <a class="btn btn-ghost" href="#features">See what's coming</a>
+        </div>
+        <div class="mini-note">Launching soon • Built for AKTU students • Free educational resources</div>
+
+        <div class="hero-stage" aria-hidden="true">
+          <div class="stage-glow"></div>
+          <div class="launch-card" id="launchCard">
+            <div class="window-bar"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div>
+            <div class="launch-content">
+              <div>
+                <div class="fake-logo">AKTUStudy<span>.in</span></div>
+                <div class="launch-title">Something useful is taking shape.</div>
+                <div class="launch-sub">A focused platform designed around the resources students actually need during semesters, exams and placements.</div>
+                <div class="progress-wrap">
+                  <div class="progress-label"><span>Building the platform</span><span>Coming Soon</span></div>
+                  <div class="progress"><span></span></div>
+                </div>
+              </div>
+              <div class="side-stack">
+                <div class="stack-card"><div class="stack-label">Core Library</div><div class="stack-value">Notes + PYQs</div></div>
+                <div class="stack-card"><div class="stack-label">Campus Pulse</div><div class="stack-value">AKTU Updates</div></div>
+                <div class="stack-card"><div class="stack-label">Study Support</div><div class="stack-value">Guides + Resources</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-line"></div>
+    </section>
+
+    <section id="about">
+      <div class="container reveal">
+        <div class="section-kicker">The idea</div>
+        <div class="about-wrap">
+          <div class="about">
+            <h2>Built around the real needs of AKTU students.</h2>
+            <p>
+              The goal is simple: reduce the time students spend hunting across scattered sources and make important study material easier to discover, understand and revisit.
+            </p>
+            <div class="pills">
+              <span class="pill">Semester-focused</span>
+              <span class="pill">Exam-ready</span>
+              <span class="pill">Student-first</span>
+              <span class="pill">Easy to navigate</span>
+            </div>
+          </div>
+          <div class="about-panel">
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div><h4>Organized learning resources</h4><p>Subjects, semesters, notes and previous-year questions in a cleaner structure.</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div><h4>University updates</h4><p>Important AKTU-related updates and announcements collected in one place.</p></div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div><h4>More tools over time</h4><p>The platform is designed to grow with calculators, guides, study utilities and other helpful features.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="container reveal">
+        <div class="section-kicker">Coming to AKTUStudy.in</div>
+        <h2 class="section-title">More than just a notes website.</h2>
+        <p class="section-sub">The first release is being shaped around the most useful categories for students. More features will be added as the platform grows.</p>
+        <div class="feature-grid">
+          <article class="feature-card"><div class="feature-icon">📚</div><h3>Notes Library</h3><p>Semester and subject-wise notes designed to be quick to find and easy to revise.</p></article>
+          <article class="feature-card"><div class="feature-icon">📝</div><h3>Previous Year Papers</h3><p>PYQs and exam-focused material to help students understand patterns and practice better.</p></article>
+          <article class="feature-card"><div class="feature-icon">📢</div><h3>AKTU Updates</h3><p>Relevant university updates, notices and academic information in one destination.</p></article>
+          <article class="feature-card"><div class="feature-icon">🚀</div><h3>Student Resources</h3><p>Useful study guides, tools and educational resources for day-to-day student needs.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container reveal">
+        <div class="section-kicker">Stay connected</div>
+        <h2 class="section-title">Want to reach the team?</h2>
+        <p class="section-sub">Have a suggestion, partnership idea, feedback or a resource that could help AKTU students? Send us a message.</p>
+
+        <div class="contact-shell">
+          <div class="contact-info">
+            <h3>Let's build a better student hub.</h3>
+            <p>AKTUStudy.in is currently under development. For questions, suggestions or collaboration, reach out directly and the team can get back to you.</p>
+            <a class="contact-link" href="mailto:info@aktustudy.in">Email us <span>info@aktustudy.in</span> ↗</a>
+            <div class="small-caption">Typical use: feedback • suggestions • collaborations • corrections</div>
+          </div>
+
+          <div class="contact-form">
+            <form id="contactForm">
+              <div class="form-row">
+                <label>Name<input required name="name" placeholder="Your name" /></label>
+                <label>Email<input required type="email" name="email" placeholder="you@example.com" /></label>
+              </div>
+              <label>Subject<input required name="subject" placeholder="How can we help?" /></label>
+              <label>Message<textarea required name="message" placeholder="Write your message..."></textarea></label>
+              <div class="send-row">
+                <div class="form-status" id="formStatus">This form opens your email app with the message prepared for info@aktustudy.in.</div>
+                <button class="btn btn-primary" type="submit">Send message ↗</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div>© <span id="year"></span> <span class="footer-brand">AKTUStudy<span>.in</span></span>. All rights reserved.</div>
+      <div>Developed by <strong style="color:#dce1ee">Mratunjay Pandey</strong></div>
+    </div>
+  </footer>
+
+  <script>
+    // Floating particles
+    const particles = document.getElementById('particles');
+    for(let i=0;i<28;i++){
+      const el=document.createElement('span');
+      el.className='particle';
+      el.style.left=Math.random()*100+'%';
+      el.style.animationDuration=(7+Math.random()*11)+'s';
+      el.style.animationDelay=(-Math.random()*14)+'s';
+      el.style.opacity=(0.2+Math.random()*0.55).toFixed(2);
+      const size=2+Math.random()*3;
+      el.style.width=size+'px'; el.style.height=size+'px';
+      particles.appendChild(el);
+    }
+
+    // Reveal sections on scroll
+    const observer=new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{ if(entry.isIntersecting) entry.target.classList.add('show'); });
+    },{threshold:.14});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Subtle 3D tilt on desktop for the launch card
+    const card=document.getElementById('launchCard');
+    if(window.matchMedia('(pointer:fine)').matches){
+      card.addEventListener('pointermove',(e)=>{
+        const rect=card.getBoundingClientRect();
+        const x=(e.clientX-rect.left)/rect.width-.5;
+        const y=(e.clientY-rect.top)/rect.height-.5;
+        card.style.transform=`perspective(1100px) rotateX(${(-y*4).toFixed(2)}deg) rotateY(${(x*6).toFixed(2)}deg) translateY(-3px)`;
+      });
+      card.addEventListener('pointerleave',()=>{
+        card.style.transform='perspective(1100px) rotateX(0deg) rotateY(0deg) translateY(0)';
+      });
+    }
+
+    // Contact form -> prepares an email to info@aktustudy.in
+    document.getElementById('contactForm').addEventListener('submit',(e)=>{
+      e.preventDefault();
+      const data=new FormData(e.currentTarget);
+      const name=data.get('name');
+      const email=data.get('email');
+      const subject=data.get('subject');
+      const message=data.get('message');
+      const body=[
+        `Name: ${name}`,
+        `Email: ${email}`,
+        '',
+        message
+      ].join('\n');
+      document.getElementById('formStatus').textContent='Opening your email app…';
+      window.location.href=`mailto:info@aktustudy.in?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setTimeout(()=>{
+        document.getElementById('formStatus').textContent='If your email app did not open, email us directly at info@aktustudy.in.';
+      },1800);
+    });
+
+    document.getElementById('year').textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
